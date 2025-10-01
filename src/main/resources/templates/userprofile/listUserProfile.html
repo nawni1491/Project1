@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Profiles</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h2>User Profiles</h2>
+
+<a th:href="@{/userprofile/create}">+ Add New User</a>
+<br/><br/>
+
+<table border="1" cellpadding="8">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Gender</th>
+        <th>Address</th>
+        <th>Image</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="profile : ${userProfiles}">
+        <td th:text="${profile.id}"></td>
+        <td th:text="${profile.name}"></td>
+        <td th:text="${profile.email}"></td>
+        <td th:text="${profile.phone}"></td>
+        <td th:text="${profile.gender}"></td>
+        <td th:text="${profile.address}"></td>
+        <td>
+            <img th:if="${profile.imageUrl != null}" th:src="@{${profile.imageUrl}}" width="60" height="60"/>
+        </td>
+        <td>
+            <a th:href="@{'/userprofile/edit?id=' + ${profile.id}}">Edit</a> |
+            <a th:href="@{'/userprofile/delete?id=' + ${profile.id}}" onclick="return confirm('Are you sure?')">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
